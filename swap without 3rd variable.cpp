@@ -1,4 +1,4 @@
-/* swapping without using third variable 
+/* swapping without using third variable */
 
 #include <iostream>
 int main()
