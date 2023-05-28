@@ -127,6 +127,7 @@ int main()
                         for(int k=0;k<n;k++)
                         {
                           c[i][j]= c[i][j] + (a[i][k] * b[k][j]);
+                          std::cout<<c[i][j]<<"\t";
                         }
                     }
                     std::cout<<std::endl;
