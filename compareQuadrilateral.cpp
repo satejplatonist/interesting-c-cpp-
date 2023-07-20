@@ -70,7 +70,7 @@ class Quad
    }
    
    // This function is for length of a line 
-   inline size_t line_distance(int x1,int x2,int y1,int y2)
+   inline size_t line_distance(int x1=0,int x2=0,int y1=0,int y2=0)
    {
      return(sqrtl(powl(abs(x2-x1),2)+powl(abs(y2-y1),2)));
    }
