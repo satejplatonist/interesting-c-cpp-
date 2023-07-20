@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 
 //Struct for a single point p(x,y)
 struct point 
 {
-   int x;
-   int y;
+   double x;
+   double y;
 };
 
 // class to hold points of a quadrilateral
@@ -15,7 +16,7 @@ class Quad
    private:
    point p1,p2,p3,p4; // four points
    point array[4]={p1,p2,p3,p4}; // array of aforementioned points
-   
+   typedef long double size_t;
    public:
    Quad(){} // constructor
 
@@ -30,11 +31,17 @@ class Quad
        std::cin>>array[i].y;
      }
    }
+
    //function to get x and y of single points (GETTER)
    void getPointsValue(int index)const noexcept
    {
-     std::cout<<"("<<obj.array[index].x<<" , "<<obj.array[index].y<<")\n";
+     std::cout<<"("<<array[index].x<<" , "<<array[index].y<<")\n";
    }
+
+   // these functions are to get indivisual x and y of a particular point
+   void getValue_X(int index)const noexcept{return array[index].x;}
+   void getValue_Y(int index)const noexcept{return array[index].y;}
+
    //function to set x and y of single points (SETTER)
    void setPointsValue(int index)
    {
@@ -43,12 +50,32 @@ class Quad
      std::cout<<"enter y of "<<index+1<<" point : ";
      std::cin>>array[index].y;
    }
+
    // friend function to display all the points of a given quadrilateral
    friend std::ostream& operator<<(std::ostream& out,Quad& obj);
    // friend function to compare the two quadrilaterals
    // THIS IS THE FUNCTION WHICH CHECKS WHEATHER QUADRILATERALS OVERLAP OR NOT 
    friend std::string compare(Quad& obj1,Quad& obj2);
+
+   long double perimeter()const noexcept // This function is for perimeter
+   {
+    size_t* ttr=new size_t[4];
+    ttr[0]=line_distance(array[0].x,array[1].x, array[0].y, array[1].y);
+    ttr[1]=line_distance(array[1].x,array[2].x, array[1].y, array[2].y);
+    ttr[2]=line_distance(array[2].x,array[3].x, array[2].y, array[3].y);
+    ttr[3]=line_distance(array[3].x,array[1].x, array[3].y, array[1].y);
+    size_t temp=ttr[0]+ttr[1]+ttr[2]+ttr[3];
+    delete[] ttr;
+    return (temp);
+   }
+   
+   // This function is for length of a line 
+   inline size_t line_distance(int x1,int x2,int y1,int y2)
+   {
+     return(sqrtl(powl(abs(x2-x1),2)+powl(abs(y2-y1),2)));
+   }
 };
+
 std::ostream& operator<<(std::ostream& out,Quad& obj)
 {
   out<<"points are : \n";
@@ -88,6 +115,7 @@ int main()
   Quad q2;
   
   q1.enterPoints();
+  std::cout<<q1.perimeter()<<" sq unit"<<std::endl;
   q2.enterPoints();
   
   std::cout<<compare(q1,q2);
