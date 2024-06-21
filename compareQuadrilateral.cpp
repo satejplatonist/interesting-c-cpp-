@@ -66,6 +66,7 @@ class Quad
     ttr[3]=line_distance(array[3].x,array[1].x, array[3].y, array[1].y);
     size_t temp=ttr[0]+ttr[1]+ttr[2]+ttr[3];
     delete[] ttr;
+    ttr=std::nullptr;
     return (temp);
    }
    
